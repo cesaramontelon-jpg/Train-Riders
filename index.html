@@ -1,65 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Train Riders - Gestion De Rutas De Paseo - Proyecto Final</title>
-    <style>
-        body { font-family: Arial; max-width: 600px; margin: 40px auto; }
-        .container { background: #f5f5f5; padding: 20px; border-radius: 10px; }
-        input, button { padding: 10px; margin: 5px; }
-        .completed { text-decoration: line-through; color: gray; }
-        .tarea { padding: 10px; border-bottom: 1px solid #ddd; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Riders - Gestión de Rutas de Paseo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>✅ Mi App de Tareas</h1>
-        
-        <div>
-            <input type="text" id="nuevaTarea" placeholder="Escribe una nueva tarea...">
-            <button onclick="agregarTarea()">Agregar Tarea</button>
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                🚂 Train Riders
+            </div>
+            <h1>Gestión de Rutas de Paseo</h1>
+            <p class="subtitle">Planifica y organiza tus rutas de tren favoritas</p>
+        </header>
+
+        <!-- Formulario para agregar rutas -->
+        <div class="card">
+            <h2>➕ Agregar Nueva Ruta</h2>
+            <div class="form-group">
+                <input type="text" id="nombreRuta" placeholder="Nombre de la ruta (ej: Costa Norte)">
+                <input type="text" id="origenDestino" placeholder="Origen - Destino (ej: Madrid - Barcelona)">
+                <input type="text" id="duracion" placeholder="Duración (ej: 2h 30min)">
+                <input type="text" id="precio" placeholder="Precio aproximado (ej: €45)">
+                <button onclick="agregarRuta()" class="btn-primary">Agregar Ruta</button>
+            </div>
         </div>
 
-        <div id="listaTareas">
-            <div class="tarea">📝 Tarea de ejemplo 1 <button onclick="completarTarea(this)">✅ Completar</button></div>
-            <div class="tarea">📝 Tarea de ejemplo 2 <button onclick="completarTarea(this)">✅ Completar</button></div>
+        <!-- Filtros -->
+        <div class="filters">
+            <button onclick="filtrarTodas()" class="btn-filter active">Todas las Rutas</button>
+            <button onclick="filtrarPendientes()" class="btn-filter">Por Experimentar</button>
+            <button onclick="filtrarCompletadas()" class="btn-filter">Realizadas</button>
         </div>
 
-        <div style="margin-top: 20px;">
-            <button onclick="filtrarTodas()">Todas</button>
-            <button onclick="filtrarPendientes()">Pendientes</button>
-            <button onclick="filtrarCompletadas()">Completadas</button>
+        <!-- Lista de rutas -->
+        <div class="card">
+            <h2>🗺️ Mis Rutas de Tren</h2>
+            <div id="listaRutas">
+                <!-- Las rutas se agregarán aquí dinámicamente -->
+                <div class="ruta">
+                    <div class="ruta-info">
+                        <h3>Ruta de la Costa Norte</h3>
+                        <p>🚄 Bilbao - Santander</p>
+                        <span class="ruta-details">⏱️ 3h 15min • 💰 €38</span>
+                    </div>
+                    <button onclick="marcarRealizada(this)" class="btn-complete">✅ Marcar como Realizada</button>
+                </div>
+                
+                <div class="ruta realizada">
+                    <div class="ruta-info">
+                        <h3>Tren de la Fresa</h3>
+                        <p>🚄 Madrid - Aranjuez</p>
+                        <span class="ruta-details">⏱️ 1h • 💰 €25</span>
+                    </div>
+                    <button onclick="marcarRealizada(this)" class="btn-undo">↶ Por Experimentar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalRutas">2</span>
+                <span class="stat-label">Rutas Totales</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="rutasRealizadas">1</span>
+                <span class="stat-label">Realizadas</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="rutasPendientes">1</span>
+                <span class="stat-label">Por Experimentar</span>
+            </div>
         </div>
     </div>
 
-    <script>
-        function agregarTarea() {
-            const texto = document.getElementById('nuevaTarea').value;
-            if (texto) {
-                const div = document.createElement('div');
-                div.className = 'tarea';
-                div.innerHTML = `📝 ${texto} <button onclick="completarTarea(this)">✅ Completar</button>`;
-                document.getElementById('listaTareas').appendChild(div);
-                document.getElementById('nuevaTarea').value = '';
-            }
-        }
-
-        function completarTarea(boton) {
-            const tarea = boton.parentElement;
-            tarea.classList.toggle('completed');
-            boton.textContent = tarea.classList.contains('completed') ? '↶ Deshacer' : '✅ Completar';
-        }
-
-        function filtrarTodas() {
-            alert('¡Funcionalidad de filtro implementada! (Todas las tareas)');
-        }
-
-        function filtrarPendientes() {
-            alert('¡Funcionalidad de filtro implementada! (Solo pendientes)');
-        }
-
-        function filtrarCompletadas() {
-            alert('¡Funcionalidad de filtro implementada! (Solo completadas)');
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
